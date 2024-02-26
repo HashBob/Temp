@@ -12,6 +12,6 @@ public class Main {
             arr[i]=c.nextInt();
         }
         Calculator calculator= new Calculator(arr);
-        System.out.println("The sum of numbers is: "+calculator.sum());
+        System.out.println("The sum of all even numbers is: "+calculator.sum());
     }
 }
