@@ -4,20 +4,21 @@ pipeline {
     stages {
         stage('Build git maven repo') {
             steps {
-                checkout changelog: false, poll: false, scm: scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/HashBob/demo-test']])
-                bat 'mvn clean install -DskipTests'
+                checkout changelog: false, poll: false, scm: scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/HashBob/Temp.git']])
+                bat 'mvn clean install'
 
             }
         }
         stage('Building docker image'){
             steps{
-                bat 'docker build -t shrbobde/temp-jenkins-agent .'
+                bat 'docker build -t shreyasbobde01/temp-jetkins-test .'
             }
         }
-        stage('Running Docker Image form jenkins'){
+        stage('Publishing docker image'){
             steps{
-                bat 'docker run --name mycontainer1 --network docker-demo-network1 -p 8091:8090 -d shrbobde/temp-jenkins-agent'
-
+                withCredentials([string(credentialsId: '72ba35cd-fbbd-4bf7-830a-d1d520bf1580', variable: 'dockerpass')]) {
+                    bat 'docker push shreyasbobde01/temp-jenkins-test'
+                }
 
             }
         }
