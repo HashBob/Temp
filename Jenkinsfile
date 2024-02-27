@@ -11,7 +11,7 @@ pipeline {
         }
         stage('Building docker image'){
             steps{
-                bat 'docker build -t shreyasbobde01/temp-jetkins-test .'
+                bat 'docker build -t shreyasbobde01/temp-jenkins-test .'
             }
         }
         stage('Publishing docker image'){
